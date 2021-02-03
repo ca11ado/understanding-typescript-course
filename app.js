@@ -12,5 +12,5 @@ var combineAges = combine(30, 26, 'as-number');
 console.log('%c custom log', 'color:red;', combineAges);
 var combineStringAges = combine('30', '26', 'as-number');
 console.log('%c custom log', 'color:red;', combineStringAges);
-var combineNames = combine('Max', 'Anna', 'as-text2');
+var combineNames = combine('Max', 'Anna', 'as-text');
 console.log('%c custom log', 'color:red;', combineNames);
