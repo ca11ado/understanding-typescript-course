@@ -1,3 +1,3 @@
-const userName = 'Max';
+const userName = 'Maximilian';
 
 console.log(userName);
