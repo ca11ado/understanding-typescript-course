@@ -1,30 +1,20 @@
-type Admin = {
-  name: string;
-  privileges: string[];
-};
-
-type Employee = {
-  name: string;
-  startDate: Date;
+interface Bird {
+  type: 'bird';
+  flyingSpeed: number;
 }
 
-type ElevatedEmployee = Admin & Employee;
-
-const e1: ElevatedEmployee = {
-  name: 'Max',
-  privileges: ['create-server'],
-  startDate: new Date()
+interface Dog {
+  type: 'dog';
+  runngingSpeed: number;
 }
 
-type Combine = string | number;
-type Numeric = number | boolean;
-type Universal = Combine & Numeric;
+type Animal = Bird | Dog;
 
-function add(a: Combine, b: Combine): Combine {
-  if (typeof a === 'string' || typeof b === 'string') {
-    return a.toString() + b.toString();
+function movingAnimal(animal: Animal) {
+  switch(animal.type) {
+    case 'bird':
+      return animal.flyingSpeed;
+    case 'dog':
+      return animal.runngingSpeed;
   }
-  return a + b;
 }
-
-console.log(add(1, 1));
