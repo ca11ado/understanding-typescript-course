@@ -1,2 +1,5 @@
-const inputElm = document.querySelector('#project-input');
-console.log('%c custom log', 'color:red;', inputElm);
+const appElm = document.querySelector('#app');
+const inputElmTemplate = document.querySelector('#project-input') as HTMLTemplateElement;
+const formElm = inputElmTemplate!.content.cloneNode(true);
+
+appElm?.appendChild(formElm!);
