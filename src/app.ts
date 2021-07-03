@@ -14,6 +14,10 @@ class DataBase {
   add(project: Project) {
     this.projects.push(project);
   }
+
+  getLast() {
+    return this.projects[this.projects.length -1];
+  }
 }
 
 // Отобразить шаблон в приложении
@@ -28,18 +32,32 @@ const showFrom = () => {
   appElement?.appendChild(formElement!);
 };
 
+const showProjectsList = () => {
+  const projectsTemplate = document.querySelector('#project-list') as HTMLTemplateElement;
+  const projectsElement = projectsTemplate!.content.cloneNode(true);
+
+  appElement?.appendChild(projectsElement);
+}
+
 const hideFrom = () => {
   const formElement = appElement.querySelector('form')!;
   appElement.removeChild(formElement);
 }
 
-const showProjects = (projects: DataBase, projectsTemplateSelector: string) => {
-  if (!projects.projects.length) {
-    return;
-  }
+const showProject = (project: Project) => {
+  const projectTemplateElement = document.querySelector('#single-project') as HTMLTemplateElement;
+  const projectElement = projectTemplateElement!.content.cloneNode(true) as HTMLElement;
 
-  const projectsTemplateElement = document.querySelector(projectsTemplateSelector)!;
-  appendTemplate(appElement, projectsTemplateElement as HTMLTemplateElement);
+  const titleElement = document.createElement('span');
+  titleElement.innerText = `Project: ${project.title}`;
+  titleElement.style.marginRight = '10px';
+  const descriptionElement = document.createElement('span');
+  descriptionElement.innerText = `Description: ${project.description}`;
+
+  projectElement.querySelector('li')!.appendChild(titleElement);
+  projectElement.querySelector('li')!.appendChild(descriptionElement);
+
+  appElement.querySelector('ul')!.appendChild(projectElement);
 }
 
 const saveProjectListener = (event: Event) => {
@@ -62,7 +80,7 @@ const saveProjectListener = (event: Event) => {
     people: people.value,
   });
 
-  showProjects(database, '#projects-list');
+  showProject(database.getLast());
 }
 
 // listeners
@@ -76,4 +94,5 @@ const appElement = document.querySelector('#app') as HTMLElement;
 const formTemplate = document.querySelector('#project-input') as HTMLTemplateElement;
 
 showFrom();
+showProjectsList();
 // hideFrom();
